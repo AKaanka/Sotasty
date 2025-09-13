@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 
-class User extends Authenticatable
+class User extends authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -46,6 +46,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function recipies()
+    {
+        return $this->hasMany(Article::class, 'author_id');
+    }
+
 
     /**
      * Get the user's initials
