@@ -16,7 +16,8 @@ class RecipeFactory extends Factory
             'title' => fake()->sentence(),
             'content' => fake()->paragraphs(3, true),
             'published' => fake()->boolean(),
-            'author_id' => fake()->numberBetween(1,10),
+            // Associate with a real user; will create one if none provided
+            'author_id' => User::factory(),
         ];
     }
 }

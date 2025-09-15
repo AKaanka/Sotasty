@@ -17,8 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->boolean('published')->default(false);
-            $table->foreignId('author_id');
-            
+            $table->foreignId('author_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }
