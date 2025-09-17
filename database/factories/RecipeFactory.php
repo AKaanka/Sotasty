@@ -1,0 +1,23 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Recipe;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class RecipeFactory extends Factory
+{
+    protected $model = Recipe::class;
+
+    public function definition(): array
+    {
+        return [
+            'title' => fake()->sentence(),
+            'content' => fake()->paragraphs(3, true),
+            'published' => fake()->boolean(),
+            // Associate with a real user; will create one if none provided
+            'author_id' => User::factory(),
+        ];
+    }
+}
