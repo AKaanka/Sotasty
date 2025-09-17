@@ -5,6 +5,14 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 
+
+use App\Http\Controllers\RecipeController;
+
+
+
+Route::get('/recipes', [RecipeController::class, 'index']);
+Route::get('/recipes/{recipe}', [RecipeController::class, 'show']);
+
 Route::get('/', function () {
     return view('welcome');
 })->name('home');

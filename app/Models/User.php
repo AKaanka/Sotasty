@@ -48,7 +48,7 @@ class User extends authenticatable
     }
     public function recipies()
     {
-        return $this->hasMany(Article::class, 'author_id');
+        return $this->hasMany(Recipe::class, 'author_id');
     }
 
 
