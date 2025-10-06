@@ -59,4 +59,15 @@ class User extends Authenticatable
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
+
+    // ...
+public function recipes()
+{
+    return $this->hasMany(Recipe::class);
+}
+public function comments()
+{
+    return $this->hasMany(Comment::class);
+}
+
 }
