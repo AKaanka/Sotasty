@@ -10,9 +10,9 @@ use App\Livewire\Settings\Password as SettingsPassword;
 use App\Livewire\Settings\Appearance as SettingsAppearance;
 use App\Livewire\Settings\TwoFactor as SettingsTwoFactor;
 
-Route::get('/', [WelcomeController::class, 'index'])->name('home');
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
-
+Route::redirect('/home', '/')->name('home');
 
 // Dashboard route expected by tests and Fortify home path
 Route::middleware(['auth'])->group(function () {
