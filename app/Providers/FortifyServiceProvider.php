@@ -23,6 +23,12 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Fortify::loginView(fn () => view('livewire.auth.login'));
+        Fortify::registerView(fn () => view('livewire.auth.register'));
+        Fortify::requestPasswordResetLinkView(fn () => view('livewire.auth.forgot-password'));
+        Fortify::resetPasswordView(fn ($request) => view('livewire.auth.reset-password', ['request' => $request]));
+        // Email verification prompt view binding is not available in this Fortify version.
+        // Fortify will use its default when the feature is enabled.
         Fortify::twoFactorChallengeView(fn () => view('livewire.auth.two-factor-challenge'));
         Fortify::confirmPasswordView(fn () => view('livewire.auth.confirm-password'));
 
