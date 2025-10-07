@@ -9,8 +9,9 @@
         </div>
     @endif
 
-    <article class="max-w-3xl mx-auto p-6 bg-white border rounded">
-        <h1 class="text-3xl font-bold">{{ $recipe->title }}</h1>
+   <article class="max-w-3xl mx-auto p-6 bg-white border rounded text-black">
+
+         <h1 class="text-3xl font-bold text-black">{{ $recipe->title }}</h1>
 
         <p class="mt-1 text-sm text-gray-600">
             By {{ $recipe->user->name }}
@@ -20,7 +21,7 @@
             &middot; <em>{{ $recipe->created_at->diffForHumans() }}</em>
         </p>
 
-        <div class="mt-5 leading-7 whitespace-pre-line">
+         <div class="mt-5 leading-7 whitespace-pre-line text-black">
             {{-- description is the correct field (NOT "content") --}}
             {{ $recipe->description }}
         </div>
