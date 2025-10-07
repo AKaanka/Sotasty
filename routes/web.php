@@ -1,66 +1,36 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\WelcomeController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-| Public pages + auth-protected pages. We split the Recipe resource so
-| index/show are public, and create/store/edit/update/destroy require login.
-| Route model binding will inject Recipe/Category automatically.
-*/
-
-/**
- * Home (welcome) page — shows latest recipes (your WelcomeController already does this).
- */Route::get('/', [WelcomeController::class, 'index'])->name('home');
-
+// Home
+Route::get('/', [WelcomeController::class, 'index'])->name('home');
 Route::get('/welcome', fn () => redirect()->route('home'))->name('welcome');
 
-/**
- * Recipes — PUBLIC part (anyone can browse and read)
- *   GET /recipes           -> recipes.index
- *   GET /recipes/{recipe}  -> recipes.show
- */
-Route::resource('recipes', RecipeController::class)
-    ->only(['index', 'show']); // your controller has these methods already 
-
-/**
- * Recipes — AUTH-ONLY part (create/edit/update/delete)
- *   GET    /recipes/create        -> recipes.create
- *   POST   /recipes               -> recipes.store
- *   GET    /recipes/{recipe}/edit -> recipes.edit
- *   PUT    /recipes/{recipe}      -> recipes.update
- *   DELETE /recipes/{recipe}      -> recipes.destroy
- */
+// ---------- Recipes: AUTH-ONLY (must come before {recipe}) ----------
 Route::middleware('auth')->group(function () {
-    Route::resource('recipes', RecipeController::class)
-        ->only(['create', 'store', 'edit', 'update', 'destroy']); // your controller already checks owner/admin in edit/update/destroy 
+    Route::get('recipes/create', [RecipeController::class, 'create'])->name('recipes.create');
+    Route::post('recipes', [RecipeController::class, 'store'])->name('recipes.store');
 
-    /**
-     * Comments — add a comment to a recipe (auth required)
-     *   POST /recipes/{recipe}/comments  -> recipes.comments.store
-     */
-    Route::post('/recipes/{recipe}/comments', [CommentController::class, 'store'])
-        ->name('recipes.comments.store'); // your CommentController@store already matches this signature 
+    Route::get('recipes/{recipe}/edit', [RecipeController::class, 'edit'])->name('recipes.edit');
+    Route::put('recipes/{recipe}', [RecipeController::class, 'update'])->name('recipes.update');
+    Route::delete('recipes/{recipe}', [RecipeController::class, 'destroy'])->name('recipes.destroy');
+
+    // Comments
+    Route::post('recipes/{recipe}/comments', [CommentController::class, 'store'])->name('recipes.comments.store');
 });
 
-/**
- * Categories — PUBLIC
- *   GET /categories               -> categories.index
- *   GET /categories/{category}    -> categories.show
- */
-Route::resource('categories', CategoryController::class)
-    ->only(['index', 'show']); // your CategoryController has index/show implemented 
+// ---------- Recipes: PUBLIC ----------
+Route::get('recipes', [RecipeController::class, 'index'])->name('recipes.index');
+Route::get('recipes/{recipe}', [RecipeController::class, 'show'])->name('recipes.show');
 
-/**
- * (Optional) include auth scaffolding routes if your project uses them.
- * In your repo you already have routes/auth.php; keep this require in place.
- */
+// ---------- Categories: PUBLIC ----------
+Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
+
+// Fortify/Livewire auth views
 require __DIR__.'/auth.php';
 

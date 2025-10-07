@@ -62,20 +62,21 @@
         </div>
 
         @auth
-            <form method="POST" action="{{ route('recipes.comments.store', $recipe) }}" class="space-y-2">
-                @csrf
-                <textarea name="content" rows="3" class="w-full p-2 rounded border"
-                          placeholder="Add a comment...">{{ old('content') }}</textarea>
-                @error('content')
-                    <p class="text-sm text-red-600">{{ $message }}</p>
-                @enderror
-                <button class="px-4 py-2 rounded bg-blue-600 text-white">Post Comment</button>
-            </form>
-        @else
-            <p class="text-gray-700">
-                <a href="{{ route('login') }}" class="text-blue-600 underline">Log in</a> to comment.
-            </p>
-        @endauth
+    <form method="POST" action="{{ route('recipes.comments.store', $recipe) }}" class="space-y-2">
+        @csrf
+        <textarea
+            name="content"
+            placeholder="Add a comment..."
+            class="w-full rounded-md border border-gray-300 bg-white text-black p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            rows="3"
+        >{{ old('content') }}</textarea>
+        @error('content')
+            <p class="text-sm text-red-600">{{ $message }}</p>
+        @enderror
+        <button class="px-4 py-2 rounded bg-blue-600 text-white">Post Comment</button>
+    </form>
+@endauth
+
     </section>
 </x-layouts.app>
 
