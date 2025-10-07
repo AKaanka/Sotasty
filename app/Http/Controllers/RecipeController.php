@@ -6,12 +6,9 @@ use App\Models\Recipe;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
-class RecipeController extends Controller
-{
-    public function __construct()
-    {
-        $this->middleware('auth')->except(['index','show']);
-    }
+class RecipeController extends Controller {
+
+    
 
     public function index()
     {
