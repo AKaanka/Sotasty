@@ -1,48 +1,66 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\WelcomeController;
-use App\Livewire\Settings\Profile as SettingsProfile;
-use App\Livewire\Settings\Password as SettingsPassword;
-use App\Livewire\Settings\Appearance as SettingsAppearance;
-use App\Livewire\Settings\TwoFactor as SettingsTwoFactor;
 
-Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+| Public pages + auth-protected pages. We split the Recipe resource so
+| index/show are public, and create/store/edit/update/destroy require login.
+| Route model binding will inject Recipe/Category automatically.
+*/
 
-Route::redirect('/home', '/')->name('home');
+/**
+ * Home (welcome) page — shows latest recipes (your WelcomeController already does this).
+ */Route::get('/', [WelcomeController::class, 'index'])->name('home');
 
-// Dashboard route expected by tests and Fortify home path
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', fn () => view('dashboard'))
-        ->name('dashboard');
-});
+Route::get('/welcome', fn () => redirect()->route('home'))->name('welcome');
 
+/**
+ * Recipes — PUBLIC part (anyone can browse and read)
+ *   GET /recipes           -> recipes.index
+ *   GET /recipes/{recipe}  -> recipes.show
+ */
 Route::resource('recipes', RecipeController::class)
-    ->only(['index','show']); // public
+    ->only(['index', 'show']); // your controller has these methods already 
 
-Route::resource('recipes', RecipeController::class)
-    ->only(['create','store','edit','update','destroy'])
-    ->middleware('auth'); // protected
+/**
+ * Recipes — AUTH-ONLY part (create/edit/update/delete)
+ *   GET    /recipes/create        -> recipes.create
+ *   POST   /recipes               -> recipes.store
+ *   GET    /recipes/{recipe}/edit -> recipes.edit
+ *   PUT    /recipes/{recipe}      -> recipes.update
+ *   DELETE /recipes/{recipe}      -> recipes.destroy
+ */
+Route::middleware('auth')->group(function () {
+    Route::resource('recipes', RecipeController::class)
+        ->only(['create', 'store', 'edit', 'update', 'destroy']); // your controller already checks owner/admin in edit/update/destroy 
 
-// Comments on recipes (authenticated)
-Route::middleware(['auth'])->group(function () {
-    Route::post('/recipes/{recipe}/comments', [CommentController::class, 'store'])->name('recipes.comments.store');
+    /**
+     * Comments — add a comment to a recipe (auth required)
+     *   POST /recipes/{recipe}/comments  -> recipes.comments.store
+     */
+    Route::post('/recipes/{recipe}/comments', [CommentController::class, 'store'])
+        ->name('recipes.comments.store'); // your CommentController@store already matches this signature 
 });
 
-// Categories
-Route::resource('categories', CategoryController::class)->only(['index','show']);
+/**
+ * Categories — PUBLIC
+ *   GET /categories               -> categories.index
+ *   GET /categories/{category}    -> categories.show
+ */
+Route::resource('categories', CategoryController::class)
+    ->only(['index', 'show']); // your CategoryController has index/show implemented 
 
-// Settings routes used in views
-Route::middleware(['auth'])->group(function () {
-    Route::get('/settings/profile', SettingsProfile::class)->name('settings.profile');
-    Route::get('/settings/password', SettingsPassword::class)->name('settings.password');
-    Route::get('/settings/appearance', SettingsAppearance::class)->name('settings.appearance');
-    Route::get('/settings/two-factor', SettingsTwoFactor::class)
-        ->middleware('password.confirm')
-        ->name('two-factor.show');
-});
-
+/**
+ * (Optional) include auth scaffolding routes if your project uses them.
+ * In your repo you already have routes/auth.php; keep this require in place.
+ */
 require __DIR__.'/auth.php';
+
