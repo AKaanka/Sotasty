@@ -4,7 +4,7 @@
     <h1 class="text-2xl font-semibold mb-4">Recipes</h1>
 
     @if(session('success'))
-        <x-components.message-block type="success">{{ session('success') }}</x-components.message-block>
+        <x-message-block type="success">{{ session('success') }}</x-message-block>
     @endif
 
     @auth
