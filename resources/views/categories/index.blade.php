@@ -3,10 +3,11 @@
     <ul class="list-disc pl-6">
         @foreach($categories as $cat)
             <li>
-                <a class="underline" href="{{ route('categories.show', $cat) }}">
+                <a href="{{ route('categories.show', $cat) }}" class="underline">
                     {{ $cat->name }} ({{ $cat->recipes_count }})
                 </a>
             </li>
         @endforeach
     </ul>
 </x-layouts.app>
+
