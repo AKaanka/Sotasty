@@ -4,12 +4,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\WelcomeController;
 use App\Livewire\Settings\Profile as SettingsProfile;
 use App\Livewire\Settings\Password as SettingsPassword;
 use App\Livewire\Settings\Appearance as SettingsAppearance;
 use App\Livewire\Settings\TwoFactor as SettingsTwoFactor;
 
-Route::get('/', fn() => view('welcome'))->name('home');
+Route::get('/', [WelcomeController::class, 'index'])->name('home');
+
+
 
 // Dashboard route expected by tests and Fortify home path
 Route::middleware(['auth'])->group(function () {
