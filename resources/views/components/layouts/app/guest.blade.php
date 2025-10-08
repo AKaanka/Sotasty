@@ -141,6 +141,11 @@
             {{ $slot }}
         </main>
 
+        <footer class="mt-16 bg-zinc-900 py-8 text-center text-sm text-zinc-100">
+            <p class="italic">“One cannot think well, love well, sleep well, if one has not dined well.”</p>
+            <p class="mt-1">&copy; {{ date('Y') }} Sotasty</p>
+        </footer>
+
         @fluxScripts
     </body>
 </html>

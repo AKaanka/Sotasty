@@ -100,8 +100,9 @@
     @yield('content')
   </main>
 
-  <footer class="mt-16 py-8 text-center text-sm text-gray-500">
-    © {{ date('Y') }} Sotasty
+  <footer class="mt-16 bg-zinc-900 py-8 text-center text-sm text-zinc-100">
+    <p class="italic">“One cannot think well, love well, sleep well, if one has not dined well.”</p>
+    <p class="mt-1">© {{ date('Y') }} Sotasty</p>
   </footer>
 </body>
 </html>
