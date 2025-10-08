@@ -1,7 +1,7 @@
 <x-layouts.app :title="'Welcome'">
   {{-- Hero --}}
   <section class="text-center mb-10">
-    <h1 class="text-4xl font-bold tracking-tight">Welcome to SoTasty!</h1>
+    <h1 class="text-5xl sm:text-6xl font-bold tracking-tight">Welcome to SoTasty!</h1>
     <p class="mt-2 text-gray-600">Discover simple, tasty recipes shared by the community.</p>
   </section>
 
