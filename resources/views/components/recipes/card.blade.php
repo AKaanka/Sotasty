@@ -5,7 +5,7 @@
 
 @php
   $isFull = $variant === 'full';
-  $wrapper = 'rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition';
+  $wrapper = 'rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition text-gray-900';
   $pad = $isFull ? 'p-8' : 'p-6';
   $titleClass = $isFull ? 'text-2xl font-bold' : 'text-xl font-semibold';
   $descLimit = $isFull ? 2000 : 300; // no trimming in full mode
