@@ -50,12 +50,13 @@
 
         <div class="space-y-3 mb-6">
             @forelse($recipe->comments as $comment)
-                <div class="p-3 rounded border bg-white">
-                    <p class="text-sm text-gray-600">
-                        {{ $comment->user->name }} &middot; <em>{{ $comment->created_at->diffForHumans() }}</em>
-                    </p>
-                    <p class="mt-1">{{ $comment->content }}</p>
-                </div>
+              <div class="p-3 rounded border bg-white">
+    <p class="text-sm text-gray-600">
+        {{ $comment->user->name }} &middot; <em>{{ $comment->created_at->diffForHumans() }}</em>
+    </p>
+    <p class="mt-1 text-gray-800">{{ $comment->content }}</p>
+</div>
+
             @empty
                 <p class="text-gray-600">No comments yet.</p>
             @endforelse
