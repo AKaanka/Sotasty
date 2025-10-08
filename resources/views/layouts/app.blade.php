@@ -12,6 +12,7 @@
   <nav class="border-b bg-white">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-6">
       <a href="{{ route('home') }}" class="font-semibold">Sotasty</a>
+      <a href="{{ route('home') }}" class="hover:underline">Home</a>
       <a href="{{ route('recipes.index') }}" class="hover:underline">Recipes</a>
       <a href="{{ route('categories.index') }}" class="hover:underline">Categories</a>
       <div class="ml-auto flex items-center gap-4">

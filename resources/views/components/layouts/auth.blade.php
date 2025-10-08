@@ -1,3 +1,6 @@
-<x-layouts.auth.simple :title="$title ?? null">
-    {{ $slot }}
-</x-layouts.auth.simple>
+<x-layouts.app.guest>
+    <div class="max-w-md mx-auto">
+        {{ $slot }}
+    </div>
+    
+</x-layouts.app.guest>

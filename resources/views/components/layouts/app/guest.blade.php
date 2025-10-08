@@ -7,6 +7,7 @@
         <flux:header>
             <flux:spacer />
 <div class="flex items-center gap-3">
+    <a href="{{ route('home') }}" class="text-sm" wire:navigate>Home</a>
     <a href="{{ route('recipes.index') }}" class="text-sm" wire:navigate>Recipes</a>
     <a href="{{ route('categories.index') }}" class="text-sm" wire:navigate>Categories</a>
 
