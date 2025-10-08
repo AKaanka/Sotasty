@@ -54,7 +54,7 @@
     <p class="text-sm text-gray-600">
         {{ $comment->user->name }} &middot; <em>{{ $comment->created_at->diffForHumans() }}</em>
     </p>
-    <p class="mt-1 text-gray-800">{{ $comment->content }}</p>
+    <p class="mt-1 text-black">{{ $comment->content }}</p>
 </div>
 
             @empty
