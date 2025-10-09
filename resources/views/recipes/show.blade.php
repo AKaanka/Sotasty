@@ -27,7 +27,7 @@
         </div>
 
         @auth
-            @if($recipe->isOwnedBy(auth()->user()) || auth()->user()->email === 'admin@admin.com')
+            @if($recipe->isOwnedBy(auth()->user()) || auth()->user()->isAdmin())
                 <div class="mt-6 flex gap-2">
                     <a href="{{ route('recipes.edit', $recipe) }}"
                        class="px-4 py-2 rounded bg-yellow-500 text-white">Edit</a>
