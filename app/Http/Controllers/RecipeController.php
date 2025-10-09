@@ -44,14 +44,14 @@ class RecipeController extends Controller {
 
     public function edit(Recipe $recipe)
     {
-        abort_unless($recipe->isOwnedBy(auth()->user()) || auth()->user()->email === 'admin@admin.com', 403);
+        abort_unless($recipe->isOwnedBy(auth()->user()) || auth()->user()->isAdmin(), 403);
         $categories = Category::orderBy('name')->get();
         return view('recipes.edit', compact('recipe','categories'));
     }
 
     public function update(Request $request, Recipe $recipe)
     {
-        abort_unless($recipe->isOwnedBy(auth()->user()) || auth()->user()->email === 'admin@admin.com', 403);
+        abort_unless($recipe->isOwnedBy(auth()->user()) || auth()->user()->isAdmin(), 403);
 
         $data = $request->validate([
             'title'       => ['required','string','min:3','max:100'],
@@ -67,7 +67,7 @@ class RecipeController extends Controller {
 
     public function destroy(Recipe $recipe)
     {
-        abort_unless($recipe->isOwnedBy(auth()->user()) || auth()->user()->email === 'admin@admin.com', 403);
+        abort_unless($recipe->isOwnedBy(auth()->user()) || auth()->user()->isAdmin(), 403);
 
         $recipe->delete();
 

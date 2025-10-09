@@ -13,6 +13,11 @@ class User extends Authenticatable
 
     protected $fillable = ['name', 'email', 'password'];
 
+    public function isAdmin(): bool
+    {
+        return $this->email === 'admin@admin.com';
+    }
+
     public function initials(): string
     {
         $parts = preg_split('/\s+/', trim((string) $this->name));

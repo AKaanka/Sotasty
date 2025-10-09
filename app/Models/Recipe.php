@@ -32,14 +32,6 @@ class Recipe extends Model
     {
         return $this->user_id === $user->id;
     }
-    public function recipes() {
-    return $this->hasMany(Recipe::class);
-}
- 
-
-    public function isAdmin(): bool {
-    return $this->email === 'admin@admin.com';
-}
 
 }
 
