@@ -32,7 +32,7 @@ class RecipeController extends Controller {
     {
         $data = $request->validate([
             'title'       => ['required','string','min:3','max:100'],
-            'description' => ['required','string','min:10'],
+            'description' => ['required','string','min:10','max:2000'],
             'cat_id'      => ['required','exists:categories,id'],
         ]);
 
